@@ -1,0 +1,3 @@
+com/stackroute/sonarqubedemo/SonarqubedemoApplication.class
+com/stackroute/sonarqubedemo/controller/HomeController.class
+com/stackroute/sonarqubedemo/service/MessageServiceImpl.class
