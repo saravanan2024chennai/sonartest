@@ -1,0 +1,27 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/saravanan2024chennai/sonardemo.git' 
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install	' 
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                // Configure SonarQube Scanner
+                withSonarQubeEnv('sq1') {
+                    sh 'mvn sonar:sonar \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.token=${jenkins-sonar}' 
+                         
+                }
+            }
+        }
+    }
+}
