@@ -9,17 +9,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean  install	' 
+                sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install'
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 // Configure SonarQube Scanner
                 withSonarQubeEnv('sq1') {
-                    sh 'mvn sonar:sonar \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=${jenkins-sonar}' 
-                         
+                    sh 'mvn sonar:sonar -Dsonar.token=squ_9357f8f125890b1c8e7a6563f4dd0cfa52ef251c'                        
                 }
             }
         }
